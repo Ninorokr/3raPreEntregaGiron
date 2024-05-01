@@ -8,7 +8,7 @@
 {id: 8, nombre: "Palta", peso: 0.450, precio: 1.80}] */
 
 var catalogo = [
-    {id: 1, nombre: "Manzana caña", categoria: "fruta", peso: 0.250, precio: 1.80, ruta: "../imagenes/manzana.jpg"},
+    {id: 1, nombre: "Manzana caña", categoria: "fruta", peso: 0.250, precio: 1.80, ruta: "imagenes/manzana.jpg"},
     {id: 2, nombre: "Cebolla roja", categoria: "verdura", peso: 0.200, precio: 0.30, ruta: "../imagenes/cebolla.webp"},
     {id: 3, nombre: "Coliflor", categoria: "verdura", peso: 0.800, precio: 1.00, ruta: "../imagenes/coliflor.webp"},
     {id: 4, nombre: "Limón", categoria: "verdura", peso: 0.080, precio: 0.10, ruta: "../imagenes/limón.webp"},
