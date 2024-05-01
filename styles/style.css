@@ -30,7 +30,7 @@ body {
 
 header h1 {
     /*height: 100px;*/
-    
+    min-width: max-content;
     font-size: 40px;
     display: flex;
     flex-direction: row;
@@ -74,4 +74,32 @@ a:hover {
     /*font-size: 26px;*/
     color: rgb(136, 150, 56);
     text-shadow: 1px 1px 1px black;
+}
+
+main {
+    margin: 20px;
+    display: flex;
+}
+
+.tarjeta {
+    border-radius: 5%;
+    width: 30vh;
+    background-color: white;
+    margin: 2vw;
+}
+.tarjeta img {
+    margin: 5%;
+    margin-bottom: 0%;
+    height: 25vh; /*CORREGIR ESTO*/
+}
+
+.propiedades {
+    margin: 5%;
+    margin-top: 0%;
+    padding: 5%;
+}
+
+.propiedades p {
+    font-family: "Kanit";
+    font-size: 25pt;
 }
