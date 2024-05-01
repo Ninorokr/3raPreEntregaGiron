@@ -5,8 +5,13 @@
 }
 
 @font-face {
-    font-family: "Kanit-Regular";
-    src: url("./Kanit-Regular.ttf");
+    font-family: "Kanit";
+    src: url("../Kanit-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Lobster";
+    src: url("../LobsterTwo-Regular.ttf");
 }
 
 html {
@@ -32,8 +37,12 @@ header h1 {
     flex-wrap: wrap;
     justify-content: center;
     padding: 25px;
-    color: rgb(118, 128, 133);
-    font-family: "Kanit-Regular";
+    color: rgb(216, 238, 89);
+    /*background: -webkit-linear-gradient(#848a8a, #ff0000);
+    -webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+    font-family: "Lobster";
+    text-shadow: 1px 1px 1px black;
 }
 
 ul {
@@ -42,5 +51,27 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: "Lobster";
+    font-size: 28px;
+    color: rgb(216, 238, 89);
+    text-shadow: 1px 1px 1px black;
+}
+
+li {
+    margin: 0px 25px;
+}
+
+hr {
+    /*border: none;*/
+    border-top: 15px double #c17eff;
+    /*color: #457979;*/
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+  }
+
+a:hover {
+    /*font-size: 26px;*/
+    color: rgb(136, 150, 56);
+    text-shadow: 1px 1px 1px black;
 }
