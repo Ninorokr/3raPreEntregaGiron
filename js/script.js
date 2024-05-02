@@ -7,16 +7,16 @@
 {id: 7, nombre: "Fresas", peso: 0.005, precio: 0.05},
 {id: 8, nombre: "Palta", peso: 0.450, precio: 1.80}] */
 
+//TODO: AGREGAR PROPIEDAD STOCK
 var catalogo = [
-    {id: 1, nombre: "Manzana caña", categoria: "fruta", peso: 0.250, precio: 1.80, ruta: "../imagenes/manzana.jpg"},
-    {id: 2, nombre: "Cebolla roja", categoria: "verdura", peso: 0.200, precio: 0.30, ruta: "../imagenes/cebolla.webp"},
-    {id: 3, nombre: "Coliflor", categoria: "verdura", peso: 0.800, precio: 1.00, ruta: "../imagenes/coliflor.webp"},
-    {id: 4, nombre: "Limón", categoria: "verdura", peso: 0.080, precio: 0.10, ruta: "../imagenes/limón.webp"},
-    {id: 5, nombre: "Palta Hass", categoria: "verdura", peso: 0.200, precio: 2.20, ruta: "../imagenes/palta.jpg"},
-    {id: 6, nombre: "Pera", categoria: "fruta", peso: 0.150, precio: 1.30, ruta: "../imagenes/pera.jpg"},
-    {id: 7, nombre: "Pitahaya", categoria: "fruta", peso: 0.200, precio: 2.00, ruta: "../imagenes/pitahaya.webp"},
-    {id: 8, nombre: "Poro", categoria: "verdura", peso: 0.150, precio: 0.50, ruta: "../imagenes/poro.webp"},
-    
+    {id: 1, nombre: "Manzana caña", categoria: "fruta", peso: 0.250, precio: 1.80, ruta: "./imagenes/manzana.jpg"},
+    {id: 2, nombre: "Cebolla roja", categoria: "verdura", peso: 0.200, precio: 0.30, ruta: "./imagenes/cebolla.webp"},
+    {id: 3, nombre: "Coliflor", categoria: "verdura", peso: 0.800, precio: 1.00, ruta: "./imagenes/coliflor.webp"},
+    {id: 4, nombre: "Limón", categoria: "verdura", peso: 0.080, precio: 0.10, ruta: "./imagenes/limón.webp"},
+    {id: 5, nombre: "Palta Hass", categoria: "verdura", peso: 0.200, precio: 2.20, ruta: "./imagenes/palta.jpg"},
+    {id: 6, nombre: "Pera", categoria: "fruta", peso: 0.150, precio: 1.30, ruta: "./imagenes/pera.jpg"},
+    {id: 7, nombre: "Pitahaya", categoria: "fruta", peso: 0.200, precio: 2.00, ruta: "./imagenes/pitahaya.webp"},
+    {id: 8, nombre: "Poro", categoria: "verdura", peso: 0.150, precio: 0.50, ruta: "./imagenes/poro.webp"}
 ]
 
 renderizarCatalogo(catalogo)
@@ -32,6 +32,15 @@ function renderizarCatalogo(catalogo) {
                     <p>${nombre}</p>
                     <p>Peso: ${peso} Kgs.</p>
                     <p>Precio: S/. ${precio}</p>
+                </div>
+                <div class=contador>
+                    <div class="boton menos">
+                        -
+                    </div>
+                    <input value=0 size=1>
+                    <div class="boton mas">
+                        +
+                    </div>
                 </div>
             </div>
         `

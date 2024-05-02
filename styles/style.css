@@ -15,7 +15,8 @@
 }
 
 html {
-    height: 100%;
+    min-height: 100vh;
+    height: fit-content;
 }
 
 
@@ -31,7 +32,7 @@ body {
 header h1 {
     /*height: 100px;*/
     min-width: max-content;
-    font-size: 40px;
+    font-size: 62pt;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -52,13 +53,19 @@ ul {
     flex-direction: row;
     justify-content: center;
     font-family: "Lobster";
-    font-size: 28px;
+    font-size: 40pt;
     color: rgb(216, 238, 89);
     text-shadow: 1px 1px 1px black;
 }
 
 li {
     margin: 0px 25px;
+}
+
+header a:hover {
+    /*font-size: 26px;*/
+    color: rgb(136, 150, 56);
+    text-shadow: 1px 1px 1px black;
 }
 
 hr {
@@ -70,36 +77,105 @@ hr {
     height: 5px;
   }
 
-a:hover {
-    /*font-size: 26px;*/
-    color: rgb(136, 150, 56);
+.buscador {
+    margin: 20px;
+    font-family: Lobster;
+    font-size: 25pt;
+    color: rgb(216, 238, 89);
     text-shadow: 1px 1px 1px black;
+}
+
+.buscador input{
+    font-size: 25pt;
+}
+
+.buscador button {
+    font-size: 25pt;
 }
 
 main {
     margin: 20px;
     display: flex;
+    flex-wrap: wrap;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center; */
 }
 
 .tarjeta {
     border-radius: 5%;
-    width: 30vh;
+    min-width: fit-content;
+    max-width: 20vw;
+    /*max-width: fit-content;*/
+    /*width: 30vh;*/
     background-color: white;
     margin: 2vw;
+    box-shadow: 10px 10px 5px rgb(0, 155, 186);
 }
+
 .tarjeta img {
-    margin: 5%;
-    margin-bottom: 0%;
-    height: 25vh; /*CORREGIR ESTO*/
+    margin-top: 10%;
+    /*margin: 5% 5% 0% 5%;*/
+    /*margin-bottom: 0%;*/
+    min-height: 300px;
+    height: 20vh;
 }
 
 .propiedades {
     margin: 5%;
-    margin-top: 0%;
+    /* margin-top: 0%; */
     padding: 5%;
 }
 
 .propiedades p {
     font-family: "Kanit";
     font-size: 25pt;
+}
+
+.contador {
+    display: flex;
+    flex-wrap: wrap;
+    /*align-content: center;*/
+    justify-content: center;
+    margin: 5%;
+    padding: 5%;
+}
+
+.contador input {
+    max-width: 25%;
+    font-size: 25pt; /*Esto rompe el tamaño de las tarjetas*/
+    border: inset black;
+}
+
+.boton {
+    border-radius: 15%;
+    padding: 15px;
+    size: 5%;
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.menos {
+    background: linear-gradient(135deg, rgba(255,0,0,1) 60%, rgba(195,0,0,1) 100%);
+    box-shadow: 2px 2px 5px rgb(140, 0, 0);
+    margin-right: 5px;
+    padding-left: 6.50%;
+    width: 15%;
+}
+
+/* .menos:active {
+    background: linear-gradient(135deg, rgba(255,0,0,1) 60%, rgba(195,0,0,1) 100%);
+    box-shadow: 2px 2px 5px rgb(140, 0, 0);
+    margin-right: 5px;
+    padding-left: 6.50%;
+    width: 10%;
+    height: 10%;
+} */
+
+.mas {
+    background: linear-gradient(135deg, rgb(173, 255, 47) 60%, rgb(122, 182, 33) 100%);
+    box-shadow: 2px 2px 5px rgb(81, 121, 22);
+    background-color: rgb(173, 255, 47);
+    margin-left: 5px;
+    width: 15%
 }
