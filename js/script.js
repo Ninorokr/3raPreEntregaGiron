@@ -32,6 +32,34 @@ function principal(catalogo) {
 
     let inputBusqueda = document.getElementById("inputBusqueda")
     inputBusqueda.addEventListener("input", () => filtrarYRenderizar(catalogo))
+
+    let contador
+    let botonMenos
+    let botonMas
+
+    for(let i = 0; i < catalogo.length; i++) {
+        contador = document.getElementById("cantidad" + catalogo[i].id)
+        contador.addEventListener("change", (e) => agregarProductoAlCarrito(e))
+        botonMenos = document.getElementById("botonMenos" + catalogo[i].id)
+        botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
+        botonMas = document.getElementById("botonMas" + catalogo[i].id)
+        botonMas.addEventListener("click", (e) => contarMasProducto(e))
+    }
+
+}
+
+function contarMenosProducto(e) {
+    let id = e.target.id.replace(/^\D+/g, '')
+    let contador = document.getElementById("cantidad" + id)
+    console.log(e.target.id + " | " + contador.id)
+    contador.value > 0 && contador.value--
+}
+
+function contarMasProducto(e) {
+    let id = e.target.id.replace(/^\D+/g, '')
+    let contador = document.getElementById("cantidad" + id)
+    console.log(e.target.id + " | " + contador.id)
+    contador.value >= 0 && contador.value++
 }
 
 function filtrarYRenderizar(catalogo) {
@@ -44,7 +72,6 @@ function filtrarCatalogo(catalogo) {
         return producto.nombre.toLowerCase().includes(inputBusqueda.value) || producto.categoria.includes(inputBusqueda.value)
     })
 }
-        
 
 function renderizarProductos(catalogo) {
     let productos = document.getElementById("contenedorProductos")
@@ -59,14 +86,14 @@ function renderizarProductos(catalogo) {
                     <p>Peso: ${peso.toFixed(3)} Kgs.</p>
                     <p>Precio: S/. ${precio.toFixed(2)}</p>
                 </div>
-                <div class=contador>
-                    <div class="boton menos" id=menos${id}>
+                <div class=contador id=contador${id}>
+                    <button class="boton menos" id=botonMenos${id}>
                         -
-                    </div>
+                    </button>
                     <input value=0 size=1 id=cantidad${id}>
-                    <div class="boton mas" id=mas${id}>
+                    <button class="boton mas" id=botonMas${id}>
                         +
-                    </div>
+                    </button>
                 </div>
             </div>
         `
