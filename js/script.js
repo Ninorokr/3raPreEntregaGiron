@@ -33,7 +33,7 @@ function principal(catalogo) {
     let inputBusqueda = document.getElementById("inputBusqueda")
     inputBusqueda.addEventListener("input", () => filtrarYRenderizar(catalogo))
 
-    let contador
+    /* let contador
     let botonMenos
     let botonMas
 
@@ -44,7 +44,7 @@ function principal(catalogo) {
         botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
         botonMas = document.getElementById("botonMas" + catalogo[i].id)
         botonMas.addEventListener("click", (e) => contarMasProducto(e))
-    }
+    } */
 
 }
 
@@ -98,9 +98,23 @@ function renderizarProductos(catalogo) {
             </div>
         `
     }
+
+    let cantidad
+    let botonMenos
+    let botonMas
+
+    for(let i = 0; i < catalogo.length; i++) {
+        cantidad = document.getElementById("cantidad" + catalogo[i].id)
+        cantidad.addEventListener("change", (e) => agregarProductoAlCarrito(e, catalogo, Number(cantidad.value)))
+        botonMenos = document.getElementById("botonMenos" + catalogo[i].id)
+        botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
+        botonMas = document.getElementById("botonMas" + catalogo[i].id)
+        botonMas.addEventListener("click", (e) => contarMasProducto(e))
+    }
 }
 
 function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCarrito (agregar o quitar)
+    console.log("Cantidad: " + cantidad)
     let carrito = obtenerCarritoLS()
     let idDelProducto = Number(e.target.id.replace(/^\D+/g, ''))
 
@@ -108,6 +122,8 @@ function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCa
     let productoBuscado = catalogo.find(producto => producto.id === idDelProducto)
 
     if (posProductoEnCarrito == -1) {
+        /* console.log("No se ubicó el producto " + productoBuscado.nombre + " en el carrito")
+        console.log("Su peso es: " + productoBuscado.peso) */
         carrito.push({
             id: productoBuscado.id,
             nombre: productoBuscado.nombre,
@@ -115,10 +131,12 @@ function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCa
             peso: productoBuscado.peso,
             precio: productoBuscado.precio,
             cantidad: cantidad,
-            pesoTotal: peso * cantidad,
-            costoTotal: precio * cantidad
+            pesoTotal: productoBuscado.peso * cantidad,
+            costoTotal: productoBuscado.precio * cantidad,
+            ruta: productoBuscado.ruta
         })
     } else {
+        console.log("Se ubicó el producto " + productoBuscado.nombre + " en el carrito")
         carrito[posProductoEnCarrito].cantidad = cantidad
         carrito[posProductoEnCarrito].pesoTotal = Math.round(carrito[posProductoEnCarrito].peso * cantidad * 100) / 100
         carrito[posProductoEnCarrito].costoTotal = Math.round(carrito[posProductoEnCarrito].precio * cantidad * 100) / 100
@@ -139,18 +157,20 @@ function renderizarCarrito() {
 
         tarjetaProdCarrito.innerHTML = `
             <img src=${ruta}>
-            <p>${nombre}</p>
-            <div class=contador>
-                    <div class="boton menos">
-                        -
+            <div class=propiedadesProdCarrito>
+                <p>${nombre}</p>
+                    <div class=contadorProdCarrito>
+                            <button class="boton menos">
+                                -
+                            </button>
+                            <input value=${cantidad} size=1>
+                            <button class="boton mas">
+                                +
+                            </button>
                     </div>
-                    <input value=${cantidad} size=1>
-                    <div class="boton mas">
-                        +
-                    </div>
-                </div>
-            <p>${pesoTotal}</p>
-            <p>${costoTotal}</p>
+                <p>${pesoTotal} Kgs.</p>
+                <p>S/. ${costoTotal}</p>
+            </div>
         `
 
         divCarrito.appendChild(tarjetaProdCarrito)

@@ -185,3 +185,71 @@ hr {
     /* padding-right: 20%; */
     /* width: 30% */
 }
+
+.divCarrito {
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 2vh; */
+}
+
+.tarjetaProdCarrito {
+    border-radius: 30px;
+    min-width: 600px;
+    max-width: 50vw;
+    min-height: 80px; 
+    max-height: 5vw;
+    display: flex;
+    justify-content: space-between;
+    /*max-width: fit-content;*/
+    /*width: 30vh;*/
+    background-color: white;
+    margin: 2vw;
+    box-shadow: 10px 10px 5px rgb(0, 155, 186);
+}
+
+.tarjetaProdCarrito img {
+    width: 5vw;
+    flex-basis: 15%;
+    /* margin-top: 10%; */
+    padding: 0% 0% 0% 5%;
+    /*margin-bottom: 0%;*/
+    /* min-height: 100px; */
+    /* height: 10vh; */
+}
+
+.propiedadesProdCarrito {
+    display: flex;
+    flex-basis: 85%;
+    justify-content: space-between;
+    align-items: center;
+    /*margin: 2.5% 5% 2.5% 5%; */
+    /* margin-top: 0%; */
+    padding: 0% 5% 0% 5%;
+}
+
+.propiedadesProdCarrito p {
+    font-family: "Kanit";
+    font-size: 14pt;
+    /* padding: 5vw; */
+}
+
+.contadorProdCarrito {
+    display: flex;
+    /*align-content: center;*/
+    /* justify-content: center; */
+    /* margin: 5%; */
+    /* padding: 5%; */
+}
+
+.contadorProdCarrito input {
+    max-width: 25%;
+    font-size: 15pt; /*Esto rompe el tamaño de las tarjetas*/
+    border: inset grey;
+}
+
+/* .oculto {
+    display: none;
+} */
+
+
+
