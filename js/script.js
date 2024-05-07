@@ -37,14 +37,14 @@ function principal(catalogo) {
 function contarMenosProducto(e) {
     let id = e.target.id.replace(/^\D+/g, '')
     let contador = document.getElementById("cantidad" + id)
-    console.log(e.target.id + " | " + contador.id)
+    /* console.log(e.target.id + " | " + contador.id) */
     contador.value > 0 && contador.value--
 }
 
 function contarMasProducto(e) {
     let id = e.target.id.replace(/^\D+/g, '')
     let contador = document.getElementById("cantidad" + id)
-    console.log(e.target.id + " | " + contador.id)
+    /* console.log(e.target.id + " | " + contador.id) */
     contador.value >= 0 && contador.value++
 }
 
@@ -101,9 +101,9 @@ function renderizarProductos(catalogo) {
 }
 
 function agregarProductoAlCarrito(e, catalogo) { //modificarCantidadCarrito (agregar o quitar)
-    console.log("idDelProducto: " + e.target.id)
+    /* console.log("idDelProducto: " + e.target.id) */
     let cantidad = Number(e.target.value)
-    console.log("Cantidad: " + cantidad)
+    /* console.log("Cantidad: " + cantidad) */
     let carrito = obtenerCarritoLS()
     let idDelProducto = Number(e.target.id.replace(/^\D+/g, ''))
     
@@ -125,7 +125,7 @@ function agregarProductoAlCarrito(e, catalogo) { //modificarCantidadCarrito (agr
             ruta: productoBuscado.ruta
         })
     } else {
-        console.log("Se ubicó el producto " + productoBuscado.nombre + " en el carrito")
+        /* console.log("Se ubicó el producto " + productoBuscado.nombre + " en el carrito") */
         carrito[posProductoEnCarrito].cantidad = cantidad
         carrito[posProductoEnCarrito].pesoTotal = Math.round(carrito[posProductoEnCarrito].peso * cantidad * 100) / 100
         carrito[posProductoEnCarrito].costoTotal = Math.round(carrito[posProductoEnCarrito].precio * cantidad * 100) / 100
