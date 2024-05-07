@@ -24,28 +24,14 @@ const obtenerCarritoLS = () => JSON.parse(localStorage.getItem("carrito")) || []
 principal(catalogo)
 
 function principal(catalogo) {
-    renderizarCarrito()
     renderizarProductos(catalogo)
+    renderizarCarrito()
 
     let botonBuscar = document.getElementById("botonBuscar")
     botonBuscar.addEventListener("click", () => filtrarYRenderizar(catalogo))
 
     let inputBusqueda = document.getElementById("inputBusqueda")
     inputBusqueda.addEventListener("input", () => filtrarYRenderizar(catalogo))
-
-    /* let contador
-    let botonMenos
-    let botonMas
-
-    for(let i = 0; i < catalogo.length; i++) {
-        contador = document.getElementById("cantidad" + catalogo[i].id)
-        contador.addEventListener("change", (e) => agregarProductoAlCarrito(e))
-        botonMenos = document.getElementById("botonMenos" + catalogo[i].id)
-        botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
-        botonMas = document.getElementById("botonMas" + catalogo[i].id)
-        botonMas.addEventListener("click", (e) => contarMasProducto(e))
-    } */
-
 }
 
 function contarMenosProducto(e) {
@@ -105,7 +91,8 @@ function renderizarProductos(catalogo) {
 
     for(let i = 0; i < catalogo.length; i++) {
         cantidad = document.getElementById("cantidad" + catalogo[i].id)
-        cantidad.addEventListener("change", (e) => agregarProductoAlCarrito(e, catalogo, Number(cantidad.value)))
+        cantidad.addEventListener("change", (e) => agregarProductoAlCarrito(e, catalogo))
+
         botonMenos = document.getElementById("botonMenos" + catalogo[i].id)
         botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
         botonMas = document.getElementById("botonMas" + catalogo[i].id)
@@ -113,11 +100,13 @@ function renderizarProductos(catalogo) {
     }
 }
 
-function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCarrito (agregar o quitar)
+function agregarProductoAlCarrito(e, catalogo) { //modificarCantidadCarrito (agregar o quitar)
+    console.log("idDelProducto: " + e.target.id)
+    let cantidad = Number(e.target.value)
     console.log("Cantidad: " + cantidad)
     let carrito = obtenerCarritoLS()
     let idDelProducto = Number(e.target.id.replace(/^\D+/g, ''))
-
+    
     let posProductoEnCarrito = carrito.findIndex(producto => producto.id === idDelProducto)
     let productoBuscado = catalogo.find(producto => producto.id === idDelProducto)
 
@@ -131,8 +120,8 @@ function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCa
             peso: productoBuscado.peso,
             precio: productoBuscado.precio,
             cantidad: cantidad,
-            pesoTotal: productoBuscado.peso * cantidad,
-            costoTotal: productoBuscado.precio * cantidad,
+            pesoTotal: Math.round(productoBuscado.peso * cantidad * 100) / 100,
+            costoTotal: Math.round(productoBuscado.precio * cantidad * 100) / 100,
             ruta: productoBuscado.ruta
         })
     } else {
@@ -149,7 +138,7 @@ function agregarProductoAlCarrito(e, catalogo, cantidad) { //modificarCantidadCa
 function renderizarCarrito() {
     let carrito = obtenerCarritoLS()
     let divCarrito = document.getElementById("divCarrito")
-    divCarrito.innerHTML = ""
+    divCarrito.innerHTML = "<h1>Carrito 🛒</h1>"
     carrito.forEach(producto => {
         let {nombre, cantidad, pesoTotal, costoTotal, ruta} = producto
         let tarjetaProdCarrito = document.createElement("div")
@@ -158,7 +147,7 @@ function renderizarCarrito() {
         tarjetaProdCarrito.innerHTML = `
             <img src=${ruta}>
             <div class=propiedadesProdCarrito>
-                <p>${nombre}</p>
+                <p id="nomProductoCarrito">${nombre}</p>
                     <div class=contadorProdCarrito>
                             <button class="boton menos">
                                 -

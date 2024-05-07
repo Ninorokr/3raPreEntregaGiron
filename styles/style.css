@@ -29,7 +29,7 @@ body {
     background: linear-gradient(0deg, rgb(65, 255, 223) 0%, rgba(0,212,255,1) 35%);
 }
 
-header h1 {
+h1 {
     /*height: 100px;*/
     min-width: max-content;
     font-size: 32pt;
@@ -189,7 +189,6 @@ hr {
 .divCarrito {
     display: flex;
     flex-direction: column;
-    /* margin-left: 2vh; */
 }
 
 .tarjetaProdCarrito {
@@ -200,6 +199,7 @@ hr {
     max-height: 5vw;
     display: flex;
     justify-content: space-between;
+    padding: 0% 2% 0% 0%;
     /*max-width: fit-content;*/
     /*width: 30vh;*/
     background-color: white;
@@ -224,13 +224,18 @@ hr {
     align-items: center;
     /*margin: 2.5% 5% 2.5% 5%; */
     /* margin-top: 0%; */
-    padding: 0% 5% 0% 5%;
+    /* padding: 0% 2% 0% 5%; */
 }
 
 .propiedadesProdCarrito p {
     font-family: "Kanit";
     font-size: 14pt;
     /* padding: 5vw; */
+}
+
+#nomProductoCarrito {
+    max-width: 20%;
+    padding-left: 2%;
 }
 
 .contadorProdCarrito {
