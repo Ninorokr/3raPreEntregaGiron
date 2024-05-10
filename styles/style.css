@@ -252,9 +252,20 @@ hr {
     border: inset grey;
 }
 
-/* .oculto {
+.botonControl {
+    height: 40px;
+    font-size: 14pt;
+}
+
+#btnComprar {
+    margin: 5%;
+}
+
+.oculto {
     display: none;
-} */
+}
+
+
 
 
 

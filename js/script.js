@@ -24,14 +24,21 @@ const obtenerCarritoLS = () => JSON.parse(localStorage.getItem("carrito")) || []
 principal(catalogo)
 
 function principal(catalogo) {
+    
     renderizarProductos(catalogo)
     renderizarCarrito()
 
-    let botonBuscar = document.getElementById("botonBuscar")
+    let botonBuscar = document.getElementById("btnBuscar")
     botonBuscar.addEventListener("click", () => filtrarYRenderizar(catalogo))
+
+    let botonVerCatalogoCarrito = document.getElementById("btnToggleCatalogoCarrito")
+    botonVerCatalogoCarrito.addEventListener("click", toggleCatalogoCarrito)
 
     let inputBusqueda = document.getElementById("inputBusqueda")
     inputBusqueda.addEventListener("input", () => filtrarYRenderizar(catalogo))
+
+    let botonComprar = document.getElementById("btnComprar")
+    botonComprar.addEventListener("click", finalizarCompra)
 }
 
 function contarMenosProducto(e) {
@@ -39,13 +46,19 @@ function contarMenosProducto(e) {
     let contador = document.getElementById("cantidad" + id)
     /* console.log(e.target.id + " | " + contador.id) */
     contador.value > 0 && contador.value--
+    let event = new CustomEvent('actualizacion', { detail: contador.value })
+    contador.dispatchEvent(event)
 }
 
 function contarMasProducto(e) {
     let id = e.target.id.replace(/^\D+/g, '')
+
     let contador = document.getElementById("cantidad" + id)
+
     /* console.log(e.target.id + " | " + contador.id) */
     contador.value >= 0 && contador.value++
+    let event = new CustomEvent('actualizacion', { detail: contador.value })
+    contador.dispatchEvent(event)
 }
 
 function filtrarYRenderizar(catalogo) {
@@ -60,10 +73,19 @@ function filtrarCatalogo(catalogo) {
 }
 
 function renderizarProductos(catalogo) {
+    let carrito = obtenerCarritoLS()
+
     let productos = document.getElementById("contenedorProductos")
     productos.innerHTML = ""
     for (let i = 0; i < catalogo.length; i++) {
         let {id, nombre, peso, precio, ruta} = catalogo[i]
+
+        let cantidadInicial = 0;
+        let posProductoEnCarrito = carrito.findIndex(producto => producto.id === id)
+        if (posProductoEnCarrito != -1) {
+            cantidadInicial = carrito[posProductoEnCarrito].cantidad
+        }
+
         productos.innerHTML += `
             <div class=tarjeta>
                 <img src=${ruta}>
@@ -76,7 +98,7 @@ function renderizarProductos(catalogo) {
                     <button class="boton menos" id=botonMenos${id}>
                         -
                     </button>
-                    <input value=0 size=1 id=cantidad${id}>
+                    <input value=${cantidadInicial} size=1 id=cantidad${id}>
                     <button class="boton mas" id=botonMas${id}>
                         +
                     </button>
@@ -90,8 +112,10 @@ function renderizarProductos(catalogo) {
     let botonMas
 
     for(let i = 0; i < catalogo.length; i++) {
+        /* cantidad = document.getElementById("cantidad" + catalogo[i].id)
+        cantidad.addEventListener("change", (e) => agregarProductoAlCarrito(e, catalogo)) */
         cantidad = document.getElementById("cantidad" + catalogo[i].id)
-        cantidad.addEventListener("change", (e) => agregarProductoAlCarrito(e, catalogo))
+        cantidad.addEventListener("actualizacion", (e) => agregarProductoAlCarrito(e, catalogo))
 
         botonMenos = document.getElementById("botonMenos" + catalogo[i].id)
         botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
@@ -131,8 +155,19 @@ function agregarProductoAlCarrito(e, catalogo) { //modificarCantidadCarrito (agr
         carrito[posProductoEnCarrito].costoTotal = Math.round(carrito[posProductoEnCarrito].precio * cantidad * 100) / 100
     }
 
+    if (cantidad == 0) {
+        carrito = quitarProductoDelCarrito(carrito, idDelProducto)
+    }
+
     localStorage.setItem("carrito", JSON.stringify(carrito))
     renderizarCarrito()
+}
+
+function quitarProductoDelCarrito(carrito, idDelProducto) {
+    let posProductoEnCarrito = carrito.findIndex(producto => producto.id === idDelProducto)
+    carrito.splice(posProductoEnCarrito, 1)
+
+    return carrito
 }
 
 function renderizarCarrito() {
@@ -140,7 +175,7 @@ function renderizarCarrito() {
     let divCarrito = document.getElementById("divCarrito")
     divCarrito.innerHTML = "<h1>Carrito 🛒</h1>"
     carrito.forEach(producto => {
-        let {nombre, cantidad, pesoTotal, costoTotal, ruta} = producto
+        let {id, nombre, cantidad, pesoTotal, costoTotal, ruta} = producto
         let tarjetaProdCarrito = document.createElement("div")
         tarjetaProdCarrito.className = "tarjetaProdCarrito"
 
@@ -149,11 +184,11 @@ function renderizarCarrito() {
             <div class=propiedadesProdCarrito>
                 <p id="nomProductoCarrito">${nombre}</p>
                     <div class=contadorProdCarrito>
-                            <button class="boton menos">
+                            <button class="boton menos" id=botonMenosCarrito${id}>
                                 -
                             </button>
-                            <input value=${cantidad} size=1>
-                            <button class="boton mas">
+                            <input value=${cantidad} size=1 id=cantidadCarrito${id}>
+                            <button class="boton mas" id=botonMasCarrito${id}>
                                 +
                             </button>
                     </div>
@@ -164,9 +199,41 @@ function renderizarCarrito() {
 
         divCarrito.appendChild(tarjetaProdCarrito)
     })
+
+    
+    /* let inputCantidadCarrito */
+    let botonMenos
+    let botonMas
+
+    for(let i = 0; i < carrito.length; i++) {
+        /* inputCantidadCarrito = document.getElementById("cantidadCarrito" + catalogo[i].id)
+        inputCantidadCarrito.addEventListener("actualizacion", (e) => agregarProductoAlCarrito(e, catalogo)) */
+        botonMenos = document.getElementById("botonMenosCarrito" + carrito[i].id)
+        botonMenos.addEventListener("click", (e) => contarMenosProducto(e))
+        botonMas = document.getElementById("botonMasCarrito" + carrito[i].id)
+        botonMas.addEventListener("click", (e) => contarMasProducto(e))
+    }
 }
 
 function finalizarCompra() {
     localStorage.removeItem("carrito")
+    renderizarProductos(catalogo)
     renderizarCarrito([])
+}
+
+function toggleCatalogoCarrito() {
+    
+    let botonVerCatalogoCarrito = document.getElementById("btnToggleCatalogoCarrito")
+    let divCatalogo = document.getElementById("divCatalogo")
+    let divCarrito = document.getElementById("divCarrito")
+    
+    if(divCatalogo.className == "oculto") {
+        botonVerCatalogoCarrito.innerText = "Ver Carrito"
+        divCatalogo.className = ""
+        divCarrito.className = "oculto"
+    } else {
+        botonVerCatalogoCarrito.innerText = "Ver Catálogo"
+        divCatalogo.className = "oculto"
+        divCarrito.className = ""
+    }
 }
